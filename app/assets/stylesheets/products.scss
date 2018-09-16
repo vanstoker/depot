@@ -1,6 +1,18 @@
+
+
+/*-- code from book --*/
+
 .products {
+
 	table {
 		border-collapse: collapse;
+		width: 100%;
+		border: 2px double black;
+	}
+
+	tr.test-tr {
+		height: 50px;
+		background: #00FFFF;
 	}
 
 	table tr td {
