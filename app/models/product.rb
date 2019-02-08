@@ -8,7 +8,7 @@ class Product < ApplicationRecord
 	validates :title, uniqueness: true
 	validates :image_url, allow_blank: true, format: {
 		with: %r{\.(gif|jpg|png)}i,
-		message: 'URL must be in format GIF, JPG or PNG.'
+		message: 'must be in format GIF, JPG or PNG.'
 	}
 
 	private
