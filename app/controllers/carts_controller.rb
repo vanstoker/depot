@@ -10,6 +10,17 @@ class CartsController < ApplicationController
   # GET /carts/1
   # GET /carts/1.json
   def show
+    begin
+      @cart = Cart.find(params[:id])
+    rescue ActivRecord::RecordNotFound
+      logger.error "The cart #{params[:id]}, is not access"
+      redirect_to store_url, notice: 'This cart is not access'
+    else
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render json: @cart }
+      end
+    end
   end
 
   # GET /carts/new
@@ -54,10 +65,12 @@ class CartsController < ApplicationController
   # DELETE /carts/1
   # DELETE /carts/1.json
   def destroy
+    @cart = current_cart
     @cart.destroy
+    session[:cart_id] = nil
     respond_to do |format|
-      format.html { redirect_to carts_url, notice: 'Cart was successfully destroyed.' }
-      format.json { head :no_content }
+      format.html { redirect_to store_url, notice: 'Your cart is currently empty' }
+      format.json { head :ok }
     end
   end
 
